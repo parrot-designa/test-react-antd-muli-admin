@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <link rel="icon" href="./bitbug_favicon.ico" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser-polyfill.min.js"></script>
+    <!-- `width=device-width` 会导致 iPhone 5 添加到主屏后以 WebApp 全屏模式打开页面时出现黑边 http://bigc.at/ios-webapp-viewport-meta.orz -->
+    <script src="https://unpkg.zhimg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/ant-design-vue@1.7.5/dist/antd.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+    <meta name="description" content="东风标致MEC素材广场" />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.zhimg.com/ant-design-vue@1.7.5/dist/antd.min.css">
+    <title>东风标致MEC素材广场</title>
+    <style>
+        input {
+            height: 44px !important;
+        }
+
+        button {
+            height: 38px !important;
+        }
+
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 10px 0;
+            padding-right: 30px;
+            z-index: 5;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .leftLogo {
+            background-image: url(./4.png);
+            width: 87px;
+            height: 86px;
+            margin-left: 30px;
+            background-size: contain;
+        }
+
+        .rightLogo {
+            background-image: url(./1.png);
+            width: 127px;
+            height: 21px;
+            position: relative;
+            top: -8px;
+            background-size: cover;
+        }
+
+        .container {
+            height: 600px;
+        }
+
+        .container_item {
+            height: 600px;
+            text-align: center;
+        }
+
+        .container_item img {
+            height: 100%;
+            margin: 0 auto;
+            /* width: 100%; */
+        }
+
+        .footer {
+            text-align: center;
+        }
+
+        .ant-card-head {
+            min-height: 28px;
+            padding-left: 4px;
+        }
+
+        .ant-card-head-title {
+            padding: 6px;
+            text-align: left;
+        }
+
+        .ant-card-head-wrapper {
+            align-items: flex-start;
+        }
+
+        .Item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 36px;
+        }
+
+        .Item:hover {
+            color: #777;
+            cursor: pointer;
+        }
+
+        .Item1:hover {
+            color: #777;
+            cursor: pointer;
+        }
+
+        .ant-card-body {
+            padding: 6px;
+
+        }
+
+        .brandCard>li>div {
+            display: block;
+            text-align: left;
+            margin: auto;
+            width: 70%;
+            white-space: nowrap;
+        }
+
+        .brandCard>li {
+            display: block;
+            border: 1px #cccccc dashed;
+            line-height: 44px;
+            width: 80%;
+            margin: 8px auto;
+        }
+
+        .formWrapper {
+            position: absolute;
+            right: 12%;
+            z-index: 100;
+            top: 115px;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .SignInTitle {
+            color: #ff5722;
+            font-size: 18px;
+            text-align: right;
+            position: relative;
+            line-height: 46px;
+            min-width: 350px;
+            margin-bottom: 20px;
+        }
+
+        .SignInTitle::after {
+            content: "";
+            width: 36px;
+            height: 2px;
+            background-color: #ff5722;
+            top: 41px;
+            right: 0px;
+            display: block;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" style="position: relative;">
+        <div class="header">
+            <div class="leftLogo">
+
+            </div>
+            <div class="rightLogo">
+
+            </div>
+        </div>
+        <div class="container">
+            <a-carousel effect="fade">
+                <div class="container_item" v-for="(advert,index) in advertList">
+                    <img :src="ImgBase+advert.image" />
+                </div>
+            </a-carousel>
+
+            <div class="formWrapper">
+
+                <div class="SignInTitle">
+                    账号密码登录
+                </div>
+                <a-form id="components-form-demo-normal-login" :form="form" class="login-form" @submit="handleSubmit">
+                    <a-form-item>
+                        <a-input v-decorator="userName" placeholder="请输入登录手机号">
+                            <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
+                        </a-input>
+                    </a-form-item>
+                    <a-form-item>
+                        <a-input v-decorator="[
+          'password',
+          { rules: [{ required: true, message: '密码必填！' }] },
+        ]" type="password" placeholder="请输入登录密码">
+                            <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
+                        </a-input>
+                    </a-form-item>
+                    <a-button type="primary" block @click="handleSubmit">
+                        登陆
+                    </a-button>
+                    <div style="height:20px;"></div>
+                    <a-button type="primary" @click="handleRegister" block>
+                        注册
+                    </a-button>
+                </a-form>
+            </div>
+        </div>
+        <div class="footer">
+            <div style="width:1200px;margin:0 auto;">
+                <a-row>
+                    <a-col :lg="{ span: 16 }">
+                        <a-card :bordered="false">
+                            <span slot="title">通知公告
+                                <a-icon type="alert" />
+                            </span>
+                            <div class="Item" v-for="(notice,index) in noticeList">
+                                <div class="Item_title">{{notice.title}}</div>
+                                <div class="Item_date">{{notice.createTimeStr}}</div>
+                            </div>
+                        </a-card>
+                    </a-col>
+                    <a-col :lg="{ span: 8 }">
+                        <a-card :bordered="false">
+                            <span slot="title">品牌媒体中心包含：</span>
+                            <ul class="brandCard">
+                                <li>
+                                    <div class="Item1">
+                                        <a-icon type="file-protect"></a-icon><span>常规创意资料下载</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="Item1">
+                                        <a-icon type="windows"></a-icon> 组合式创意下载
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="Item1">
+                                        <a-icon type="download"></a-icon> 指导文件下载
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="Item1">
+                                        <a-icon type="phone"></a-icon> 网站运维：0551-63354088
+                                    </div>
+                                </li>
+                            </ul>
+                        </a-card>
+                    </a-col>
+                </a-row>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    Vue.use(antd);
+    var ImgBase = "https://yxs-zygl.oss-cn-beijing.aliyuncs.com/";
+
+    var ApiBase = "https://mec.peugeot.com.cn/";
+
+    var vm = new Vue({
+        el: '#app',
+        beforeCreate: function beforeCreate() {
+            this.form = this.$form.createForm(this, {
+                name: 'normal_login'
+            });
+        },
+        data: function data() {
+            return {
+                advertList: [],
+                noticeList: [],
+                userName: ['userName', {
+                    rules: [{
+                        required: true,
+                        message: '手机号必填！'
+                    }]
+                }],
+                string:''
+            };
+        },
+        methods: {
+            handleSubmit: function handleSubmit(e) {
+                e.preventDefault();
+                var self = this;
+                this.form.validateFields(function (err, values) {
+                    if (!err) {
+                        console.log('Received values of form: ', values);
+                        axios({
+                            method: 'post',
+                            url:ApiBase+"res/login?username=".concat(values.userName, "&password=").concat(values.password)
+                        }).then(function (res) {
+                            console.log(res);
+                            var code = res.data.code;
+                            var t = res.data.t;
+                            var msg = res.data.msg;
+
+                            if (code !== 1200) {
+                                self.$message.error(msg);
+                            } else {
+                                self.$message.success("您的账号已验证成功，即将登陆");
+                                sessionStorage.setItem('USERNAME', t.username);
+                                sessionStorage.setItem('TOKEN', t.token);
+                                axios({
+                                    url: ApiBase+"res/role/user",
+                                    headers: {
+                                        'Token': sessionStorage.getItem('TOKEN')
+                                    },
+                                    methods: 'GET'
+                                }).then(function (resA) {
+                                    var code = resA.data.code;
+                                    var t = resA.data.t;
+                                    var msg = resA.data.msg;
+                                    sessionStorage.setItem('MENU', JSON.stringify(t));
+                                    axios({
+                                        url: ApiBase+"res/role/user/functions",
+                                        headers: {
+                                            'Token': sessionStorage.getItem('TOKEN')
+                                        },
+                                        methods: 'GET'
+                                    }).then(function (resB) {
+                                        console.log("res", resB);
+                                        var code = resB.data.code;
+                                        var t = resB.data.t;
+                                        var msg = resB.data.msg;
+                                        sessionStorage.setItem('Functions', JSON.stringify(t));
+
+                                        if (code !== 1200) {
+                                            self.$message.error(msg);
+                                        } else {
+                                            location.href = "https://mec.peugeot.com.cn/reso/#/"+self.string; 
+                                        }
+                                    }).catch(function (e) {
+                                        self.$message.error("获取信息失败");
+                                    });
+                                });
+                            }
+                        });
+                    }
+                });
+            },
+            handleRegister: function handleRegister(e) {
+                console.log("handleRegister"); // this.$message.warning("该功能暂未开放")
+
+                location.href = "https://mec.peugeot.com.cn/register.html";
+            }
+        },
+        mounted: function mounted() {
+            var self = this;
+            axios({
+                url: ApiBase+"res/index/info",
+                methods: 'GET'
+            }).then(function (res) {
+                var t = res.data.t;
+                console.log("Get", t);
+                self.advertList = t.advertList;
+                self.noticeList = t.noticeList;
+            });
+            let startIndex=window.location.href.indexOf('fileDetail')
+            let string=window.location.href.substr(startIndex)
+
+            if(startIndex>-1){
+                this.string=string;
+            }
+            
+        }
+    });
+</script>
+
+</html>

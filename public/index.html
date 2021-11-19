@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/bitbug_favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta data-n-head="ssr" name="renderer" content="webkit">
+  <meta data-n-head="ssr" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="东风标致MEC素材广场" />
+  <link rel="apple-touch-icon" href="logo192.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+  <script>
+    if (!Object.keys) {
+      Object.keys = (function () {
+        var hasOwnProperty = Object.prototype.hasOwnProperty,
+          hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString'),
+          dontEnums = [
+            'toString',
+            'toLocaleString',
+            'valueOf',
+            'hasOwnProperty',
+            'isPrototypeOf',
+            'propertyIsEnumerable',
+            'constructor'
+          ],
+          dontEnumsLength = dontEnums.length;
+
+        return function (obj) {
+          if (typeof obj !== 'object' && typeof obj !== 'function' || obj === null) throw new TypeError('Object.keys called on non-object');
+
+          var result = [];
+
+          for (var prop in obj) {
+            if (hasOwnProperty.call(obj, prop)) result.push(prop);
+          }
+
+          if (hasDontEnumBug) {
+            for (var i = 0; i < dontEnumsLength; i++) {
+              if (hasOwnProperty.call(obj, dontEnums[i])) result.push(dontEnums[i]);
+            }
+          }
+          return result;
+        }
+      })()
+    };
+  </script>
+  <title>东风标致MEC素材广场</title>
+</head>
+
+<body>
+  <!-- 主题 -->
+  <link type="text/css" rel="stylesheet/less" href="/color.less">
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+</body>
+
+</html>

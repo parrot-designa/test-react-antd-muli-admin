@@ -1,0 +1,40 @@
+.treeList{
+    height:100%;
+    overflow:hidden;
+    position: relative;
+    .header{
+        padding:8px;
+        background-color: #fafafa;
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+    }
+    .cotent{
+        padding: 8px;
+        background-color: #fff;
+        position: absolute;
+        top: 40px;
+        overflow: scroll;
+        width: 100%;
+        height: calc(100% - 40px);
+    }
+
+    :global(.ant-tree-title){
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+}
+
+.table{
+
+    :global(.ant-typography){
+        margin-bottom: 0;
+    }
+
+    :global(.ant-table-cell){
+        padding: 2px!important;
+    }
+}
