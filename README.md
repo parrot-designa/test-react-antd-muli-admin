@@ -1,10 +1,6 @@
-<h1 align="center">Antd Multi Tabs Admin</h1>
-
-<div align="center">🛠️Antd多标签页后台管理模板🛠️</div>
-
+ 
 <div align="center">
-由于业务上有多页签需求，网上找了一圈，都是基于antd pro的模板，太重了，不喜欢😒。<br/>
-于是自己从以前的框架上改造，搭了这么一个精简版框架，用得也舒服，原创🤪。
+ asasdasd 
 
 [预览地址](https://www.hongshaoli.com/antd-admin)
 </div>
